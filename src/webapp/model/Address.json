@@ -1,0 +1,13 @@
+{
+  "Name": "John Doe",
+  "Street": "14th Avenue",
+  "Number": "32",
+  "ZIPCode": "24190",
+  "City": "Santa Barbara",
+  "State": "CA",
+  "Country": "USA",
+  "Url": "http://www.mysite.com",
+  "Twitter": "@followme",
+  "Tel": "+1 324 2345 123",
+  "Email": "info@mysite.com"
+}
