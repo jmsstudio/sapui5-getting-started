@@ -31,6 +31,21 @@
                       description="{i18n>executingLabel} {mainPanel>/process/name}" 
                       valueLiveUpdate="true"
                       width="60%" />
+                <Input 
+                      value="{
+                        path: 'mainPanel>/process/value',
+                        type: 'sap.ui.model.type.Float',
+                        formatOptions: {
+                            minFractionDigits: 2
+                        },
+                        constraints: {
+                            maximum : 3000
+                        }
+                      }"
+                      description="{i18n>processValueLabel} {mainPanel>/process/value}" 
+                      valueLiveUpdate="false"
+                      width="20%" />
+                
               </IconTabFilter>
 
               <IconTabFilter id="layouts" text="{i18n>layoutsFilter}">
@@ -73,27 +88,66 @@
 
               <IconTabFilter text="{i18n>dataBindingFilter}" key="db">
               	<content>
-              		<List headerText="{i18n>productListTitle}" 
-              			  items="{/ProductSet}">
+              		<List id="productsList"
+              			  items="{
+                        path:'/ProductSet',
+                        sorter:{
+                          path: 'Category',
+                          group: true
+                        }
+                      }"
+                      growing="true"
+                      growingThreshold="10"
+                      growingScrollToLoad="false"
+                      >
+                        <headerToolbar>
+                          <Toolbar>
+                            <Title text="{i18n>productListTitle}" />
+                            <ToolbarSpacer />
+                            <SearchField width="40%" search="onFilterProducts" />
+                          </Toolbar>
+                        </headerToolbar>
               			<items>
               				<ObjectListItem 
-                        title="{Name}"
-                        number="{Price}"
-                        numberState="{= ${Price} > 1000 ? 'Error' : 'Success'}"
-                        intro="{ProductID}"
-                      >
-                        <firstStatus>
-                          <ObjectStatus text="{
-                            parts: [
-                              {path: 'WeightUnit'},
-                              {path: 'WeightMeasure'}
-                            ],
-                            formatter: '.formatter.delivery'
-                          }" />
-                        </firstStatus>
-                      </ObjectListItem>
+                                title="{Name}"
+                                number="{
+                                    parts: [
+                                        {path: 'Price'},
+                                        {path: 'CurrencyCode'}
+                                    ],
+                                    type: 'sap.ui.model.type.Currency',
+                                    formatOptions: {
+                                        showMeasure: false
+                                    }
+                                }"
+                                numberUnit="{CurrencyCode}"
+                                numberState="{= ${Price} > 1000 ? 'Error' : 'Success'}"
+                                intro="{ProductID}"
+                                type="Active"
+                                press="onItemSelected"
+                            >
+                                <firstStatus>
+                                    <ObjectStatus text="{
+                                        parts: [
+                                            {path: 'WeightUnit'},
+                                            {path: 'WeightMeasure'}
+                                        ],
+                                        formatter: '.formatter.delivery'
+                                    }" />
+                                </firstStatus>
+                            </ObjectListItem>
               			</items>
               		</List>
+                  <Panel id="pnlProductDetail"
+                         headerText="{i18n>pnlProductDetailHeader}"
+                         visible="false">
+                    <l:Grid>
+                      <Text text="{i18n>pnlProductDetailID}: {ProductID}" />
+                      <Text text="{i18n>pnlProductDetailName}: {Name}" />
+                      <Text text="{i18n>pnlProductDetailDescription}: {Description}" />
+                      <Text text="{i18n>pnlProductDetailPrice}: {Price}" />
+                    </l:Grid>
+                  </Panel>
               	</content>
               </IconTabFilter>
 
