@@ -3,11 +3,14 @@ sap.ui.define(['sap/ui/core/UIComponent'], function(UIComponent) {
 
   return UIComponent.extend('br.com.jmsstudio.sapui5.Component', {
     metadata: {
-      manifest: 'json'
+      manifest: 'json',
     },
     init: function() {
       //calls parent init function
       UIComponent.prototype.init.apply(this, arguments);
-    }
+
+      //to debug the requests, disable the batch requests
+      //this.getModel().setUseBatch(false);
+    },
   });
 });

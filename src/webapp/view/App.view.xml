@@ -1,5 +1,5 @@
-<mvc:View xmlns="sap.m" 
-    xmlns:mvc="sap.ui.core.mvc" 
+<mvc:View xmlns="sap.m"
+    xmlns:mvc="sap.ui.core.mvc"
     xmlns:core="sap.ui.core"
     xmlns:l="sap.ui.layout"
     xmlns:f="sap.ui.layout.form"
@@ -16,22 +16,22 @@
               <IconTabFilter id="start" text="{i18n>gettingStartedFilter}">
                 <Carousel>
                   <pages>
-                    <Image 
-                      src="https://images.techhive.com/images/article/2016/11/computerworld_tech_forecast_2017_hottest-tech-skills-for-2017-100692085-large.jpg" 
+                    <Image
+                      src="https://images.techhive.com/images/article/2016/11/computerworld_tech_forecast_2017_hottest-tech-skills-for-2017-100692085-large.jpg"
                       height="400px"
                       />
-                    <Image 
-                      src="https://lh3.googleusercontent.com/aPUDOiVrY-5u6dOUyF6m-LiUd1_GxiLCwtBlFa5euzS9J9oDb0wLJQ5AWVtskYWG76M=h900" 
+                    <Image
+                      src="https://lh3.googleusercontent.com/aPUDOiVrY-5u6dOUyF6m-LiUd1_GxiLCwtBlFa5euzS9J9oDb0wLJQ5AWVtskYWG76M=h900"
                       height="400px"
                       />
                   </pages>
                 </Carousel>
                 <Button text="{i18n>executeButtonText}" press="onExecute" />
                 <Input value="{mainPanel>/process/name}"
-                      description="{i18n>executingLabel} {mainPanel>/process/name}" 
+                      description="{i18n>executingLabel} {mainPanel>/process/name}"
                       valueLiveUpdate="true"
                       width="60%" />
-                <Input 
+                <Input
                       value="{
                         path: 'mainPanel>/process/value',
                         type: 'sap.ui.model.type.Float',
@@ -42,10 +42,10 @@
                             maximum : 3000
                         }
                       }"
-                      description="{i18n>processValueLabel} {mainPanel>/process/value}" 
+                      description="{i18n>processValueLabel} {mainPanel>/process/value}"
                       valueLiveUpdate="false"
                       width="20%" />
-                
+
               </IconTabFilter>
 
               <IconTabFilter id="layouts" text="{i18n>layoutsFilter}">
@@ -91,6 +91,9 @@
               		<List id="productsList"
               			  items="{
                         path:'/ProductSet',
+                        parameters: {
+                          expand: 'ToSupplier'
+                        },
                         sorter:{
                           path: 'Category',
                           group: true
@@ -108,7 +111,7 @@
                           </Toolbar>
                         </headerToolbar>
               			<items>
-              				<ObjectListItem 
+              				<ObjectListItem
                                 title="{Name}"
                                 number="{
                                     parts: [
@@ -135,6 +138,9 @@
                                         formatter: '.formatter.delivery'
                                     }" />
                                 </firstStatus>
+                                <secondStatus>
+                                  <ObjectStatus title="{i18n>statusDeliveryFrom}" text="{ToSupplier/Address/City}" />
+                                </secondStatus>
                             </ObjectListItem>
               			</items>
               		</List>
